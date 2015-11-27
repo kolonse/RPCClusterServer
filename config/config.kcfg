@@ -1,12 +1,13 @@
 # 远程调用集群服务 配置文件
 # 开发环境配置 默认配置 通过命令行传入参数进行决定使用的环境 xx.exe -env=dev
 dev{
-	# 监听客户端连接端口号
-	listenClientPort 14100
+	# 客户端连接服务地址
+	serveraddr 0.0.0.0:14100
 	
 	# 日志文件配置
 	log{
-		filename logs/beego.log
+		logdir logs
+		filename beego.log
 		maxlines 10000
 		maxsize 104857600
 		daily true
