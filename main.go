@@ -4,6 +4,7 @@ package main
 import (
 	"encoding/json"
 	"github.com/kolonse/TCPServer"
+	"github.com/kolonse/function"
 	"github.com/kolonse/kolonsecfg"
 	"github.com/kolonse/logs"
 	"os"
@@ -39,5 +40,7 @@ func main() {
 	logger.Info("当前环境:%v 加载配置:\n%v", *env, cfgNode.Dump(""))
 	ts := TCPServer.NewTCPServer(cfgNode.Child("serveraddr").GetString())
 	ts.Register("logger", logger)
+	ts.Register("newConnCB", function.Bind(ClientConnect, function.P_1))
+	ts.Register("recvCB", function.Bind(ClientDataRecv, function.P_1, function.P_2, function.P_3))
 	ts.Server()
 }
